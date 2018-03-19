@@ -3,4 +3,4 @@ This projects consists of two parts:
 
 server - gets information from the device and draws a 3d-shaped trajectory realtime/from the file
 
-device - has accelerometer gyroscope, sends it's data to the server
+device - has accelerometer and gyroscope, sends it's data to the server
