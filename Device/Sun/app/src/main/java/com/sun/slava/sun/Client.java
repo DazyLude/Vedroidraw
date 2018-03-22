@@ -1,6 +1,6 @@
 package com.sun.slava.sun;
-
 import android.util.Log;
+import android.view.View;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -8,28 +8,25 @@ import java.net.Socket;
 
 
 public class Client {
-    private static final String LOG_TAG = "myServerApp";
-    // ip адрес сервера, который принимает соединения
     private String mServerName = "192.168.43.109";
-    private int mServerPort = 1092;
+    private int mServerPort = 1111;
     private Socket mSocket = null;
-
-
-    public Client() {}
+    private static final String LOG_TAG = "myServerApp";
 
 
     public void openConnection() throws Exception {
-        /* Освобождаем ресурсы */
         closeConnection();
         try {
-            mSocket = new Socket(mServerName,mServerPort);
+            mSocket = new Socket(mServerName, mServerPort);
+
         } catch (IOException e) {
-            //throw new Exception("Невозможно создать сокет: "+e.getMessage());
+
+            //throw new Exception("Невозможно создать сокет: " + e.getMessage());
         }
     }
 
-    public void closeConnection() {
 
+    public void closeConnection() {
         if (mSocket != null && !mSocket.isClosed()) {
             try {
                 mSocket.close();
@@ -42,15 +39,16 @@ public class Client {
         mSocket = null;
     }
 
+
     public void sendData(byte[] data) throws Exception {
         if (mSocket == null || mSocket.isClosed()) {
-            //throw new Exception("Невозможно отправить данные. Сокет не создан или закрыт");
+            throw new Exception("Невозможно отправить данные. Сокет не создан или закрыт");
         }
         try {
             mSocket.getOutputStream().write(data);
             mSocket.getOutputStream().flush();
         } catch (IOException e) {
-           // throw new Exception("Невозможно отправить данные: "+e.getMessage());
+            //throw new Exception("Невозможно отправить данные: " + e.getMessage());
         }
     }
 
@@ -65,11 +63,5 @@ public class Client {
 
 
 
+
 }
-
-
-
-
-
-
-
